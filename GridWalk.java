@@ -11,7 +11,8 @@ public class GridWalk {
 			//for (j = 0; j <= (max_coordinate-i); j++) {// y axis, from 0 to (max_coordinate-i)
 			for (j = 0; j <= max_coordinate; j++) {// y axis, from 0 to max_coordinate
 				//if( beyond_nineteen(i, j) ) break;
-				if( beyond_nineteen(i, j) ) j = max_coordinate;
+				if( beyond_nineteen(i, j) ) continue;
+				//if( beyond_nineteen(i, j) ) j = max_coordinate;
 				else counter++;
 			}
 		}
