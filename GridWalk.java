@@ -32,21 +32,10 @@ public class GridWalk {
 			return counter;
 		visited[x][y] = 1;
 		counter++;
-		//if (x > 1) counter = search(x - 1, y, counter, visited);
+
 		counter = search(x + 1, y, counter, visited);
-		//if (y > 0) counter = search(x, y - 1, counter, visited);
 		counter = search(x, y + 1, counter, visited);
-		return counter;
-	}
-	
-	public static int search_point(int x, int y, int max_coordinate, int counter) {
-		int i, j;
-		for (i = x; i <= max_coordinate; i++) { // x axis, from 1 to (max_coordinate-1)
-			for (j = y; j <= (max_coordinate-i); j++) {// y axis, from 0 to (max_coordinate-i) 
-				if( beyond_nineteen(i, j) ) counter = search_point(i+1, j-1, j-1, counter);				
-				else counter++;
-			}
-		}
+		
 		return counter;
 	}
 	
