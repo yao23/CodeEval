@@ -6,23 +6,37 @@ public class GridWalk {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int i, j, max_coordinate = 298, counter = 0;		
-		for (i = 1; i <= max_coordinate; i++) { // x axis, from 1 to (max_coordinate-1)
-			//for (j = 0; j <= (max_coordinate-i); j++) {// y axis, from 0 to (max_coordinate-i)
-			for (j = 0; j <= max_coordinate; j++) {// y axis, from 0 to max_coordinate
-				//if( beyond_nineteen(i, j) ) break;
-				if( beyond_nineteen(i, j) ) continue;
-				//if( beyond_nineteen(i, j) ) j = max_coordinate;
-				else counter++;
-			}
+		int i, j, dup_counter = 0, max = 299, counter = 0;
+		int[][] visited = new int[max][max]; 
+			for (i = 0; i < max; i++)
+				for (j = 0; j < max; j++)
+					visited[i][j] = 0;
+		
+		counter = search(0, 0, counter, visited);
+		for (int m = 0; m < visited[0].length; m++) {
+			if (visited[0][m] == 1)
+				dup_counter++;
 		}
-
-//		counter = search_point(1, 0, max_coordinate, counter);
-		counter *= 4; // 4 areas divided by 2 axes
+		counter -= dup_counter; // remove the duplicated part
+		counter *= 4; // 4 areas in coordinate system
 		counter++; // the origin (0, 0)
 		
 		System.out.print(counter);
 
+	}
+	
+	public static int search(int x, int y, int counter, int[][] visited) {
+		if (beyond_nineteen(x, y))	// check the constraint.
+			return counter;
+		if (visited[x][y] == 1)	// check for duplicate.
+			return counter;
+		visited[x][y] = 1;
+		counter++;
+		//if (x > 1) counter = search(x - 1, y, counter, visited);
+		counter = search(x + 1, y, counter, visited);
+		//if (y > 0) counter = search(x, y - 1, counter, visited);
+		counter = search(x, y + 1, counter, visited);
+		return counter;
 	}
 	
 	public static int search_point(int x, int y, int max_coordinate, int counter) {
